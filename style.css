@@ -91,3 +91,7 @@ body[data-phase=home] #home-title{display:block}
 
 /* The home scene is decorative; only its buttons accept input. */
 body[data-phase=home] #world{pointer-events:none;cursor:default}
+
+/* Persistent copyright across home, gameplay, voting and dialogs. */
+#copyright{position:fixed;left:12px;right:12px;bottom:calc(8px + var(--safe-bottom));z-index:40;text-align:center;font-size:10px;font-weight:400;line-height:1.5;letter-spacing:0;color:#a0a697;pointer-events:none}
+body[data-phase=vote] #copyright{color:#aab4ab}
