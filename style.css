@@ -81,3 +81,10 @@ body[data-phase=home] #home-title{display:block}
 @media(orientation:landscape) and (max-height:500px){#skip-turn{bottom:calc(16px + var(--safe-bottom));width:210px;min-height:46px}}
 
 #modal .loser-label{font-size:12px;font-weight:500;line-height:1.5;color:#8b9385;margin:0 0 4px}
+
+/* Room above mobile hosting badges and safe areas. */
+@media(max-width:700px),(pointer:coarse) and (max-height:500px){
+ #skip-turn{bottom:calc(100px + var(--safe-bottom));min-height:50px}
+ body[data-phase=home] #home{bottom:calc(100px + var(--safe-bottom))}
+ #hud .stage{--scene-heading-size:clamp(24px,6.8vw,32px)}
+}
