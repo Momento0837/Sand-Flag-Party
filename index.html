@@ -1,0 +1,10 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#faf8ef"><title>모래 한 줌 — 깃발을 지켜라</title><link rel="stylesheet" href="style.css"><script defer src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script><script defer src="game.js"></script></head><body data-phase="home">
+<canvas id="world" aria-label="누르고 드래그하여 모래를 쌓거나 덜어내는 3D 게임"></canvas>
+
+<h1 id="home-title">깃발을 살려라!</h1>
+<main id="home"><div class="actions"><button id="single" class="primary">싱글로 시작</button><button id="multi" class="secondary">멀티로 시작</button></div></main>
+
+<section id="hud" hidden><div class="stage"><h2 id="instruction"></h2><p id="scene-hint"></p></div><div class="timer"><strong id="seconds">10.0</strong></div><button id="skip-turn" class="primary" hidden>턴 넘기기!</button></section>
+<div id="shade" hidden></div><section id="modal" hidden></section><section id="gallery" hidden><h2>어떤 모래산에서 놀까요?</h2><p><b id="voteclock">10</b>초</p><div id="photos"></div></section>
+<div id="toast" role="status"></div>
+</body></html>
