@@ -38,7 +38,7 @@ goHome();assert.equal(grid.reduce((s,v)=>s+v,0),0,'intro starts with empty sand'
 console.log('PASS: cone buildup, radial shape, automatic orbit, manual pause, gameplay isolation');
 assert.equal(BRUSH_RADIUS,3.5);
 assert.equal(insideTriangle([200,200],[0,0],[1,1],[2,2]),false,'collapsed triangles must not accept distant touches');
-releaseGesture();phase='home';$('modal').hidden=true;canvas.onpointerdown(event(10,2,240));const pitch=cameraPitch;canvas.onpointermove(event(10,2,260));assert(cameraPitch>pitch,'dragging down increases downward viewing angle');canvas.onpointerup(event(10,2,260));
+releaseGesture();phase='between';$('modal').hidden=true;canvas.onpointerdown(event(10,2,240));const pitch=cameraPitch;canvas.onpointermove(event(10,2,260));assert(cameraPitch>pitch,'dragging down increases downward viewing angle');canvas.onpointerup(event(10,2,260));
 online=false;host=true;players=[{id:'solo',name:'idle player'}];myId='solo';turn=0;grid=new Float32Array(SIZE).fill(1);plant();setPhase('plant',now());update();assert.equal(phase,'dig');assert.equal(deadline-now(),10000);assert.equal(turnRemoved,0);clock.value+=9999;update();assert.equal(phase,'dig');clock.value++;update();assert.equal(phase,'over');assert.equal(endName,'idle player');assert.equal(endReason,'아무 모래도 덜어내지 않았어요.');
 const blank=new Float32Array(SIZE);assert.equal(sculpt(blank,{x:16,z:16},-.1),0,'empty clicks do not count');
 grid=new Float32Array(SIZE).fill(1);plant();setPhase('plant',now());update();pressed=true;pointer={x:2,z:2};update();pressed=false;assert(turnRemoved>0);clock.value=deadline;update();assert.equal(phase,'between','real removal survives timeout');clock.value=deadline;update();assert.equal(turnRemoved,0,'new turn resets removal count');
@@ -81,4 +81,12 @@ cameraZoom=1;phase='dig';for(const [w,h] of [[390,844],[320,568],[844,390],[1680
 players=[{id:'a'},{id:'b'},{id:'c'}];const random=Math.random;Math.random=()=>0;shuffleTurns();Math.random=random;assert.deepEqual(turnOrder,['b','c','a']);assert.equal(turnPlayer(0).id,'b');assert.equal(turnPlayer(3).id,'b');assert.equal(players[0].id,'a','host roster stays unchanged');
 sent.length=0;online=true;broadcastState();assert.deepEqual(sent[0].turnOrder,turnOrder);turnOrder=[];receive(sent[0]);assert.deepEqual(turnOrder,['b','c','a']);
 console.log('PASS: empty-board orbit, pinch zoom, no accidental sculpt, viewport fit, shuffled order and synchronization');
+`,sandbox);
+
+vm.runInContext(`
+releaseGesture();phase='home';$('modal').hidden=true;const homeYaw=cameraYaw,homePitch=cameraPitch,homeZoom=cameraZoom;
+canvas.onpointerdown(event(60,200,300));canvas.onpointermove(event(60,260,350));
+canvas.onpointerdown(touch(61,100,300));canvas.onpointerdown(touch(62,200,300));canvas.onpointermove(touch(62,300,300));
+assert.equal(gesture,null);assert.equal(touches.size,0);assert.equal(cameraYaw,homeYaw);assert.equal(cameraPitch,homePitch);assert.equal(cameraZoom,homeZoom);
+console.log('PASS: home ignores mouse dragging and touch pinch');
 `,sandbox);

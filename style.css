@@ -88,3 +88,6 @@ body[data-phase=home] #home-title{display:block}
  body[data-phase=home] #home{bottom:calc(100px + var(--safe-bottom))}
  #hud .stage{--scene-heading-size:clamp(24px,6.8vw,32px)}
 }
+
+/* The home scene is decorative; only its buttons accept input. */
+body[data-phase=home] #world{pointer-events:none;cursor:default}

@@ -101,6 +101,7 @@ function releaseGesture(clearPath=true){touches.clear();pinch=null;strokeAnchor=
 function hasSand(hit){return hit&&[0,1,N,N+1].some(i=>(grid[hit.z*N+hit.x+i]||0)>.025)}
 function sculptable(hit){return hit&&((phase==='build'&&!maps[myId])||(canDig()&&hasSand(hit)))}
 canvas.onpointerdown=e=>{
+ if(phase==='home')return;
  if(e.button>0||!$('modal').hidden||phase==='vote')return;
  if(e.pointerType==='touch'){
   touches.set(e.pointerId,{x:e.clientX,y:e.clientY});canvas.setPointerCapture(e.pointerId);
@@ -112,6 +113,7 @@ canvas.onpointerdown=e=>{
  else{gesture='sculpt';pressed=true;pointer=hit;strokeAnchor=hit;strokeScreen={x:e.clientX,y:e.clientY};strokePath.push(hit);beep(320)}e.preventDefault()
 };
 canvas.onpointermove=e=>{
+ if(phase==='home')return;
  if(touches.has(e.pointerId))touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
  if(gesture==='pinch'){if(touches.size>=2&&pinch){const p=[...touches.values()];cameraZoom=Math.max(.6,Math.min(2,pinch.zoom*Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y)/pinch.distance))}e.preventDefault();return}
  if(activePointer!==null&&e.pointerId!==activePointer)return;
